@@ -13,5 +13,14 @@ UCLASS()
 class SPACESHOOTABILITY_API AGameModeBase_SSA : public AGameModeBase
 {
 	GENERATED_BODY()
+
+public: 
+	AGameModeBase_SSA();
 	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Metrics")
+	int32 StartingMoney = 8;
+
+protected :
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Metrics")
+	UDataTable* DTGameData;
 };
