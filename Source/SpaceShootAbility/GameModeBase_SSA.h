@@ -18,7 +18,7 @@ public:
 	AGameModeBase_SSA();
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Metrics")
-	int32 StartingMoney = 8;
+	int32 StartingMoney = 0;
 
 protected :
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Metrics")

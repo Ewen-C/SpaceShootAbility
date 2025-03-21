@@ -6,6 +6,9 @@
 #include "GameFramework/Pawn.h"
 #include "Pawn_SSA.generated.h"
 
+// Delegates - must be before the UCLASS ; MULTICAST -> Exposed to BPs
+DECLARE_MULTICAST_DELEGATE(FOnDeath);
+
 UCLASS()
 class SPACESHOOTABILITY_API APawn_SSA : public APawn
 {
@@ -26,4 +29,15 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+protected:
+    UPROPERTY(VisibleAnywhere, Category = "Components")
+    UStaticMeshComponent* PawnMesh;
+
+public:
+	UFUNCTION()
+	void Die();
+	
+	// Events
+	FOnDeath OnDeath;
+	
 };

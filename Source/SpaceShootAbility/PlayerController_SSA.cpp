@@ -22,6 +22,8 @@ void APlayerController_SSA::BeginPlay()
 
 	// SpawnedWidgetHud = CreateWidget(this, WidgetHud);
 	// SpawnedWidgetHud->AddToViewport();
+
+	UE_LOG(LogTemp, Log, TEXT("APlayerController_SSA::BeginPlay"));;
 }
 
 void APlayerController_SSA::SetupInputComponent()
@@ -43,6 +45,8 @@ void APlayerController_SSA::HandleMovement(const FInputActionValue& InputValue)
 	// Or  InputValue.Get<FInputActionValue::Axis1D>();  if float input
 
 	UE_LOG(LogTemp, Warning, TEXT("HandleMovement - MovementAmount : %s"), *MovementAmount.ToString());
+
+	APawn* PlayerPawn = GetPawn();
 }
 
 void APlayerController_SSA::HandleFire()
