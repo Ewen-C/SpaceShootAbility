@@ -33,9 +33,21 @@ protected:
     UPROPERTY(VisibleAnywhere, Category = "Components")
     UStaticMeshComponent* PawnMesh;
 
+    UPROPERTY()
+    float MovementAmount;
+
 public:
+    UPROPERTY(EditAnywhere, Category = "Metrics")
+    float MoveSpeed = 20.f;
+	
 	UFUNCTION()
 	void Die();
+	
+	UFUNCTION()
+	void Move(int NewMovementAmount);
+
+	UFUNCTION()
+	void Shoot();
 	
 	// Events
 	FOnDeath OnDeath;

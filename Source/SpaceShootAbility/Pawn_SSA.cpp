@@ -37,6 +37,19 @@ void APawn_SSA::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 // Called to bind functionality to input
 void APawn_SSA::Die()
 {
-	UE_LOG(LogTemp, Log, TEXT("APawn_SSA::Die"));;
+	UE_LOG(LogTemp, Log, TEXT("APawn_SSA::Die"));
+}
+
+void APawn_SSA::Move(int NewMovementAmount)
+{
+	// this->MovementAmount = MovementAmount;
+
+	UE_LOG(LogTemp, Log, TEXT("APawn_SSA::Move : %d"), NewMovementAmount);
+	SetActorLocation(this->GetActorLocation() + NewMovementAmount * MoveSpeed);
+}
+
+void APawn_SSA::Shoot()
+{
+	UE_LOG(LogTemp, Log, TEXT("APawn_SSA::Shoot"));
 }
 

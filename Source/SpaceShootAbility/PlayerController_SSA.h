@@ -5,10 +5,12 @@
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
 #include "InputActionValue.h"
+#include "Camera/CameraActor.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "Kismet/GameplayStatics.h"
 #include "Blueprint/UserWidget.h"
+#include "PlayerPawn_SSA.h"
 #include "PlayerController_SSA.generated.h"
 
 /**
@@ -48,5 +50,8 @@ protected:
 
 	UPROPERTY()
 	UUserWidget* SpawnedWidgetHud;
+
+	UPROPERTY()
+	APlayerPawn_SSA* PlayerPawn_Ssa;
 	
 };

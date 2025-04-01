@@ -3,6 +3,7 @@
 
 #include "PlayerController_SSA.h"
 
+
 void APlayerController_SSA::BeginPlay()
 {
 	Super::BeginPlay(); 
@@ -17,13 +18,18 @@ void APlayerController_SSA::BeginPlay()
 	       Subsystem->AddMappingContext(MappingContext_SSA, 0);
 	   }
 
+    AActor* FoundActor = UGameplayStatics::GetActorOfClass(GetWorld(), ACameraActor::StaticClass());
+	SceneCamera = Cast<ACameraActor>(FoundActor);
+
 	// HUD setup
 	// if (WidgetHud == nullptr) UE_LOG(LogTemp, Fatal, TEXT("No WidgetHud assigned ! "));
 
 	// SpawnedWidgetHud = CreateWidget(this, WidgetHud);
 	// SpawnedWidgetHud->AddToViewport();
 
-	UE_LOG(LogTemp, Log, TEXT("APlayerController_SSA::BeginPlay"));;
+	UE_LOG(LogTemp, Log, TEXT("APlayerController_SSA::BeginPlay"));
+
+	PlayerPawn_Ssa = Cast<APlayerPawn_SSA>(GetPawn());
 }
 
 void APlayerController_SSA::SetupInputComponent()
@@ -46,7 +52,9 @@ void APlayerController_SSA::HandleMovement(const FInputActionValue& InputValue)
 
 	UE_LOG(LogTemp, Warning, TEXT("HandleMovement - MovementAmount : %s"), *MovementAmount.ToString());
 
-	APawn* PlayerPawn = GetPawn();
+	// TODO : Envoyer cette variable au Pawn du joueur -> bouger le joueur au Tick du Pawn
+	if(MovementAmount.X == 0) return;
+	PlayerPawn_Ssa->Move(MovementAmount.X);
 }
 
 void APlayerController_SSA::HandleFire()
