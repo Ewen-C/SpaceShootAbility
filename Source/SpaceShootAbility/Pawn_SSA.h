@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
+#include "Components/ArrowComponent.h"
 #include "Pawn_SSA.generated.h"
 
 // Delegates - must be before the UCLASS ; MULTICAST -> Exposed to BPs
@@ -23,22 +24,29 @@ protected:
 	virtual void BeginPlay() override;
 
 public:	
-	// Called every frame
+	// Called every frame	
 	virtual void Tick(float DeltaTime) override;
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-
-protected:
+	
     UPROPERTY(VisibleAnywhere, Category = "Components")
     UStaticMeshComponent* PawnMesh;
+	
+    UPROPERTY(VisibleAnywhere, Category = "Components")
+    UArrowComponent* ShootArrow;
+
+protected:
 
     UPROPERTY()
     float MovementAmount;
 
 public:
     UPROPERTY(EditAnywhere, Category = "Metrics")
-    float MoveSpeed = 20.f;
+    bool CanMove = true;
+	
+    UPROPERTY(EditAnywhere, Category = "Metrics")
+    float MoveSpeed = 25.f;
 	
 	UFUNCTION()
 	void Die();

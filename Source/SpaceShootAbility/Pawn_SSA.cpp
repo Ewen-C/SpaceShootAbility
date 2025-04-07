@@ -2,6 +2,8 @@
 
 
 #include "Pawn_SSA.h"
+#include "Bullet_SSA.h"
+
 
 // Sets default values
 APawn_SSA::APawn_SSA()
@@ -11,6 +13,9 @@ APawn_SSA::APawn_SSA()
 
     PawnMesh = CreateDefaultSubobject<UStaticMeshComponent>("PawnMesh");
     RootComponent = PawnMesh;
+	
+	ShootArrow = CreateDefaultSubobject<UArrowComponent>("ShootArrow");
+	ShootArrow->ArrowLength = 25.f;
 }
 
 // Called when the game starts or when spawned
@@ -25,6 +30,12 @@ void APawn_SSA::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	if(CanMove && MovementAmount != 0)
+	{
+		FVector currentLocation = this->GetActorLocation();
+		this->SetActorLocation(FVector(currentLocation.X + MovementAmount * MoveSpeed * DeltaTime * 100, currentLocation.Y, currentLocation.Z));
+	}
+	
 }
 
 // Called to bind functionality to input
@@ -42,14 +53,31 @@ void APawn_SSA::Die()
 
 void APawn_SSA::Move(int NewMovementAmount)
 {
-	// this->MovementAmount = MovementAmount;
-
 	UE_LOG(LogTemp, Log, TEXT("APawn_SSA::Move : %d"), NewMovementAmount);
-	SetActorLocation(this->GetActorLocation() + NewMovementAmount * MoveSpeed);
+	MovementAmount = NewMovementAmount;
 }
 
 void APawn_SSA::Shoot()
 {
 	UE_LOG(LogTemp, Log, TEXT("APawn_SSA::Shoot"));
+    UWorld* World = GetWorld();
+    if (World)
+    {
+        FActorSpawnParameters SpawnParams;
+        SpawnParams.Owner = this;
+        SpawnParams.Instigator = GetInstigator();
+
+        ABullet_SSA* Projectile = World->SpawnActor<ABullet_SSA>(
+        	ABullet_SSA::StaticClass(),
+        	this->GetActorLocation() + ShootArrow->GetComponentLocation(),
+        	this->GetActorRotation() + ShootArrow->GetComponentRotation(),
+        	SpawnParams);
+    	
+        if (Projectile)
+        {
+            FVector LaunchDirection = ShootArrow->GetForwardVector();
+            Projectile->FireInDirection(LaunchDirection);
+        }
+    }
 }
 

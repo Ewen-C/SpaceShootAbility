@@ -3,7 +3,9 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Components/SphereComponent.h"
 #include "GameFramework/Actor.h"
+#include "GameFramework/ProjectileMovementComponent.h"
 #include "Bullet_SSA.generated.h"
 
 UCLASS()
@@ -23,8 +25,16 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	UFUNCTION()
+	void OnComponentHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
+	void OnDealDamage();
+	void FireInDirection(const FVector& ShootDirection);
+
 protected:
     UPROPERTY(VisibleAnywhere, Category = "Components")
     UStaticMeshComponent* BulletMesh;
+
+    UPROPERTY(VisibleAnywhere, Category = "Components")
+    UProjectileMovementComponent* ProjectileMovementComponent;
 
 };

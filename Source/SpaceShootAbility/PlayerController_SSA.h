@@ -39,6 +39,7 @@ protected:
 	
 	// Input Action handlers
 	void HandleMovement(const FInputActionValue& InputValue);
+	void HandleMovementStopped();
 	void HandleFire();
 
 	// Cached actors

@@ -42,6 +42,9 @@ void APlayerController_SSA::SetupInputComponent()
 	// Bind all actions
 
 	EIC->BindAction(ActionMovement, ETriggerEvent::Triggered, this, &APlayerController_SSA::HandleMovement);
+	EIC->BindAction(ActionMovement, ETriggerEvent::Canceled, this, &APlayerController_SSA::HandleMovementStopped);
+	EIC->BindAction(ActionMovement, ETriggerEvent::Completed, this, &APlayerController_SSA::HandleMovementStopped);
+
 	EIC->BindAction(ActionFire, ETriggerEvent::Started, this, &APlayerController_SSA::HandleFire);
 }
 
@@ -53,11 +56,17 @@ void APlayerController_SSA::HandleMovement(const FInputActionValue& InputValue)
 	UE_LOG(LogTemp, Warning, TEXT("HandleMovement - MovementAmount : %s"), *MovementAmount.ToString());
 
 	// TODO : Envoyer cette variable au Pawn du joueur -> bouger le joueur au Tick du Pawn
-	if(MovementAmount.X == 0) return;
-	PlayerPawn_Ssa->Move(MovementAmount.X);
+	PlayerPawn_Ssa->Move(MovementAmount.Y);
+}
+
+void APlayerController_SSA::HandleMovementStopped()
+{
+	UE_LOG(LogTemp, Warning, TEXT("HandleMovementStopped"));
+	PlayerPawn_Ssa->Move(0);
 }
 
 void APlayerController_SSA::HandleFire()
 {
 	UE_LOG(LogTemp, Warning, TEXT("HandleFire"));
+	PlayerPawn_Ssa->Shoot();
 }
