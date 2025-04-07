@@ -31,14 +31,14 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	
-    UPROPERTY(VisibleAnywhere, Category = "Components")
+    UPROPERTY(EditAnywhere, Category = "Components")
     UStaticMeshComponent* PawnMesh;
 	
-    UPROPERTY(VisibleAnywhere, Category = "Components")
+    UPROPERTY(EditAnywhere, Category = "Components")
     UArrowComponent* ShootArrow;
 
 	UPROPERTY(EditAnywhere, Category = "Projectile")
-    TSubclassOf<class ABullet_SSA> ProjectileClass;
+    TSubclassOf<ABullet_SSA> ProjectileClass;
 
 protected:
 

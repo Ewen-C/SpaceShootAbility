@@ -71,6 +71,11 @@ void APawn_SSA::Shoot()
         	this->GetActorLocation() + ShootArrow->GetRelativeLocation(),
         	this->GetActorRotation() + ShootArrow->GetRelativeRotation(),
         	SpawnParams);
+
+    	UE_LOG(LogTemp, Warning, TEXT("this->GetActorLocation().ToString(): %s"), *this->GetActorLocation().ToString());
+    	UE_LOG(LogTemp, Warning, TEXT("this->GetActorRotation().ToString(): %s"), *this->GetActorRotation().ToString());
+    	UE_LOG(LogTemp, Warning, TEXT("ShootArrow->GetRelativeLocation().ToString(): %s"), *ShootArrow->GetRelativeLocation().ToString());
+    	UE_LOG(LogTemp, Warning, TEXT("ShootArrow->GetRelativeRotation().ToString(): %s"), *ShootArrow->GetRelativeRotation().ToString());
     	
         if (Projectile)
         {

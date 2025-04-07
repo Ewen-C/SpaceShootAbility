@@ -20,8 +20,8 @@ ABullet_SSA::ABullet_SSA()
     {
         ProjectileMovementComponent = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("ProjectileMovementComponent"));
         ProjectileMovementComponent->SetUpdatedComponent(BulletMesh);
-        ProjectileMovementComponent->InitialSpeed = 200.0f;
-        ProjectileMovementComponent->MaxSpeed = 200.0f;
+        ProjectileMovementComponent->InitialSpeed = 20.0f;
+        ProjectileMovementComponent->MaxSpeed = 20.0f;
         ProjectileMovementComponent->bRotationFollowsVelocity = true;
         ProjectileMovementComponent->ProjectileGravityScale = 0.0f;
     }
