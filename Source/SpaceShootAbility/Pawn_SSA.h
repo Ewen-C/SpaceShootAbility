@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
 #include "Components/ArrowComponent.h"
+#include "Bullet_SSA.h"
 #include "Pawn_SSA.generated.h"
 
 // Delegates - must be before the UCLASS ; MULTICAST -> Exposed to BPs
@@ -35,6 +36,9 @@ public:
 	
     UPROPERTY(VisibleAnywhere, Category = "Components")
     UArrowComponent* ShootArrow;
+
+	UPROPERTY(EditAnywhere, Category = "Projectile")
+    TSubclassOf<class ABullet_SSA> ProjectileClass;
 
 protected:
 

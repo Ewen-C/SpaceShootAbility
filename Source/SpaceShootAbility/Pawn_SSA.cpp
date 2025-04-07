@@ -2,7 +2,6 @@
 
 
 #include "Pawn_SSA.h"
-#include "Bullet_SSA.h"
 
 
 // Sets default values
@@ -68,9 +67,9 @@ void APawn_SSA::Shoot()
         SpawnParams.Instigator = GetInstigator();
 
         ABullet_SSA* Projectile = World->SpawnActor<ABullet_SSA>(
-        	ABullet_SSA::StaticClass(),
-        	this->GetActorLocation() + ShootArrow->GetComponentLocation(),
-        	this->GetActorRotation() + ShootArrow->GetComponentRotation(),
+        	ProjectileClass,
+        	this->GetActorLocation() + ShootArrow->GetRelativeLocation(),
+        	this->GetActorRotation() + ShootArrow->GetRelativeRotation(),
         	SpawnParams);
     	
         if (Projectile)
