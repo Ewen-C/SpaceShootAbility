@@ -69,17 +69,18 @@ void APawn_SSA::Shoot()
         ABullet_SSA* Projectile = World->SpawnActor<ABullet_SSA>(
         	ProjectileClass,
         	this->GetActorLocation() + ShootArrow->GetRelativeLocation(),
-        	this->GetActorRotation() + ShootArrow->GetRelativeRotation(),
+        	this->GetActorRotation(),
         	SpawnParams);
 
-    	UE_LOG(LogTemp, Warning, TEXT("this->GetActorLocation().ToString(): %s"), *this->GetActorLocation().ToString());
     	UE_LOG(LogTemp, Warning, TEXT("this->GetActorRotation().ToString(): %s"), *this->GetActorRotation().ToString());
-    	UE_LOG(LogTemp, Warning, TEXT("ShootArrow->GetRelativeLocation().ToString(): %s"), *ShootArrow->GetRelativeLocation().ToString());
     	UE_LOG(LogTemp, Warning, TEXT("ShootArrow->GetRelativeRotation().ToString(): %s"), *ShootArrow->GetRelativeRotation().ToString());
     	
         if (Projectile)
         {
-            FVector LaunchDirection = ShootArrow->GetForwardVector();
+            FVector LaunchDirection = ShootArrow->GetRelativeRotation().Vector();
+    		UE_LOG(LogTemp, Warning, TEXT("ShootArrow->GetRelativeRotation().Vector().ToString(): %s"),
+    			*ShootArrow->GetRelativeRotation().Vector().ToString());
+        	
             Projectile->FireInDirection(LaunchDirection);
         }
     }

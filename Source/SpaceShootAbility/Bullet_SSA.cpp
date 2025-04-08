@@ -20,8 +20,8 @@ ABullet_SSA::ABullet_SSA()
     {
         ProjectileMovementComponent = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("ProjectileMovementComponent"));
         ProjectileMovementComponent->SetUpdatedComponent(BulletMesh);
-        ProjectileMovementComponent->InitialSpeed = 20.0f;
-        ProjectileMovementComponent->MaxSpeed = 20.0f;
+        ProjectileMovementComponent->InitialSpeed = 2500.0f;
+        ProjectileMovementComponent->MaxSpeed = 2500.0f;
         ProjectileMovementComponent->bRotationFollowsVelocity = true;
         ProjectileMovementComponent->ProjectileGravityScale = 0.0f;
     }
@@ -33,9 +33,7 @@ void ABullet_SSA::BeginPlay()
 	Super::BeginPlay();
 	UE_LOG(LogTemp, Log, TEXT("ABullet_SSA::BeginPlay"));
 	
-	BulletMesh->SetSimulatePhysics(true);
-	BulletMesh->SetEnableGravity(false);
-
+	SetLifeSpan(5.0f); // TODO : Make parameter
 	BulletMesh->OnComponentHit.AddDynamic(this, &ABullet_SSA::OnComponentHit);
 	
 }
@@ -61,6 +59,6 @@ void ABullet_SSA::OnDealDamage()
 
 void ABullet_SSA::OnComponentHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
 {
-	// TODO : LOG
+	UE_LOG(LogTemp, Log, TEXT("ABullet_SSA::OnComponentHit"));
 }
 
