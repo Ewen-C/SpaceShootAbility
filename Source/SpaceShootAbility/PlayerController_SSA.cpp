@@ -52,10 +52,7 @@ void APlayerController_SSA::HandleMovement(const FInputActionValue& InputValue)
 {
 	FVector2D MovementAmount = InputValue.Get<FInputActionValue::Axis2D>();
 	// Or  InputValue.Get<FInputActionValue::Axis1D>();  if float input
-
-	UE_LOG(LogTemp, Warning, TEXT("HandleMovement - MovementAmount : %s"), *MovementAmount.ToString());
-
-	// TODO : Envoyer cette variable au Pawn du joueur -> bouger le joueur au Tick du Pawn
+	
 	PlayerPawn_Ssa->Move(MovementAmount.Y);
 }
 

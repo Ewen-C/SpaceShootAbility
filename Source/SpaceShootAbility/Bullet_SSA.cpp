@@ -2,6 +2,7 @@
 
 
 #include "Bullet_SSA.h"
+#include "Pawn_SSA.h"
 #include "Kismet/GameplayStatics.h"
 
 // Sets default values
@@ -33,7 +34,7 @@ void ABullet_SSA::BeginPlay()
 	Super::BeginPlay();
 	UE_LOG(LogTemp, Log, TEXT("ABullet_SSA::BeginPlay"));
 	
-	SetLifeSpan(5.0f); // TODO : Make parameter
+	SetLifeSpan(4.0f); // TODO : Make parameter
 	BulletMesh->OnComponentHit.AddDynamic(this, &ABullet_SSA::OnComponentHit);
 	
 }
@@ -46,7 +47,6 @@ void ABullet_SSA::Tick(float DeltaTime)
 }
 
 
-// Function that initializes the projectile's velocity in the shoot direction.
 void ABullet_SSA::FireInDirection(const FVector& ShootDirection)
 {
     ProjectileMovementComponent->Velocity = ShootDirection * ProjectileMovementComponent->InitialSpeed;
@@ -59,6 +59,15 @@ void ABullet_SSA::OnDealDamage()
 
 void ABullet_SSA::OnComponentHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
 {
-	UE_LOG(LogTemp, Log, TEXT("ABullet_SSA::OnComponentHit"));
+    // TODO : Use bullet stats
+
+	APawn_SSA* HitPawn = Cast<APawn_SSA>(OtherActor);
+	if(!IsValid(HitPawn)) return;
+	
+	UE_LOG(LogTemp, Log, TEXT("HitPawn : %s"), *HitPawn->GetName());
+
+
+
+	Destroy();
 }
 

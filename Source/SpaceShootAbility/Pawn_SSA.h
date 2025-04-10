@@ -6,6 +6,7 @@
 #include "GameFramework/Pawn.h"
 #include "Components/ArrowComponent.h"
 #include "Bullet_SSA.h"
+#include "MyStatsSystem.h"
 #include "Pawn_SSA.generated.h"
 
 // Delegates - must be before the UCLASS ; MULTICAST -> Exposed to BPs
@@ -41,9 +42,11 @@ public:
     TSubclassOf<ABullet_SSA> ProjectileClass;
 
 protected:
-
     UPROPERTY()
     float MovementAmount;
+
+    UPROPERTY(VisibleAnywhere, Category = "Stats")
+	UMyStatsSystem* PawnStats;
 
 public:
     UPROPERTY(EditAnywhere, Category = "Metrics")

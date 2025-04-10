@@ -15,6 +15,8 @@ APawn_SSA::APawn_SSA()
 	
 	ShootArrow = CreateDefaultSubobject<UArrowComponent>("ShootArrow");
 	ShootArrow->ArrowLength = 25.f;
+
+	PawnStats = NewObject<UMyStatsSystem>();
 }
 
 // Called when the game starts or when spawned
@@ -52,7 +54,7 @@ void APawn_SSA::Die()
 
 void APawn_SSA::Move(int NewMovementAmount)
 {
-	UE_LOG(LogTemp, Log, TEXT("APawn_SSA::Move : %d"), NewMovementAmount);
+	// UE_LOG(LogTemp, Log, TEXT("APawn_SSA::Move : %d"), NewMovementAmount);
 	MovementAmount = NewMovementAmount;
 }
 
@@ -71,17 +73,13 @@ void APawn_SSA::Shoot()
         	this->GetActorLocation() + ShootArrow->GetRelativeLocation(),
         	this->GetActorRotation(),
         	SpawnParams);
-
-    	UE_LOG(LogTemp, Warning, TEXT("this->GetActorRotation().ToString(): %s"), *this->GetActorRotation().ToString());
-    	UE_LOG(LogTemp, Warning, TEXT("ShootArrow->GetRelativeRotation().ToString(): %s"), *ShootArrow->GetRelativeRotation().ToString());
     	
         if (Projectile)
         {
             FVector LaunchDirection = ShootArrow->GetRelativeRotation().Vector();
-    		UE_LOG(LogTemp, Warning, TEXT("ShootArrow->GetRelativeRotation().Vector().ToString(): %s"),
-    			*ShootArrow->GetRelativeRotation().Vector().ToString());
-        	
             Projectile->FireInDirection(LaunchDirection);
+
+        	// TODO : Setup bullet stats
         }
     }
 }
